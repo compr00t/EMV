@@ -13,8 +13,8 @@ else:
 			x = x[0:-4]
 
 		print("")
-		print("[=] -------------------- TLV decoded --------------------")
-		print("[=] " + x[0:2] + "[" + x[2:4] + "] Response Message Template Format 1:")
+		print("[+] -------------------- TLV decoded --------------------")
+		print("[+] " + x[0:2] + "[" + x[2:4] + "] Response Message Template Format 1:")
 		data = x[4:]
 		rounds = math.ceil(len(data)/32)
 		for s in range (0, rounds):
@@ -23,12 +23,12 @@ else:
 			print("[=]  " + '{:02d}'.format(s) + ": " + " ".join(print_data[i:i+2] for i in range(0, len(print_data), 2)))
 		
 		print("")
-		print("[=] ---------------- Decode AIP and AFL -----------------")
-		print("[=] 82[02]: Application Interchange Profile (AIP):")
+		print("[+] ---------------- Decode AIP and AFL -----------------")
+		print("[+] 82[02]: Application Interchange Profile (AIP):")
 		print("[=]  00: " + data[0:2] + " " + data[2:4])
 
 		afl = data[4:]
-		print("[=] 94[" + str(int(len(afl)/2)) + "]: Application File Locator (AFL):")
+		print("[+] 94[" + str(int(len(afl)/2)) + "]: Application File Locator (AFL):")
 		print("[=]  00: " + " ".join(afl[i:i+2] for i in range(0, len(afl), 2)))
 
 		number_of_sfi = int(len(afl)/8)
@@ -45,8 +45,8 @@ else:
 			x = x[0:-4]
 
 		print("")
-		print("[=] -------------------- TLV decoded --------------------")
-		print("[=] " + x[0:2] + "[" + x[2:4] + "] Response Message Template Format 2:")
+		print("[+] -------------------- TLV decoded --------------------")
+		print("[+] " + x[0:2] + "[" + x[2:4] + "] Response Message Template Format 2:")
 		data = x[4:]
 		rounds = math.ceil(len(data)/32)
 		for s in range (0, rounds):
@@ -55,13 +55,13 @@ else:
 			print("[=]  " + '{:02d}'.format(s) + ": " + " ".join(print_data[i:i+2] for i in range(0, len(print_data), 2)))
 		
 		print("")
-		print("[=] ------------------- Decode AFL ----------------------")
+		print("[+] ------------------- Decode AFL ----------------------")
 		afl = ""
 		for s in range (0, len(data)):
 			if data[s] == "9" and data[(s+1)] == "4" and int(data[(s+2)],16) <= 2:
 				afl_length = int(data[s+2:s+4], 16)*2
 				afl = data[(s+4):(s+4+afl_length)]
-				print("[=] " + data[s:(s+2)] + "[" + data[(s+2):(s+4)] + "] Application File Locator (AFL):")
+				print("[+] " + data[s:(s+2)] + "[" + data[(s+2):(s+4)] + "] Application File Locator (AFL):")
 				print("[=]  00: " + " ".join(afl[i:i+2] for i in range(0, len(afl), 2)))
 			s = s+1
 
